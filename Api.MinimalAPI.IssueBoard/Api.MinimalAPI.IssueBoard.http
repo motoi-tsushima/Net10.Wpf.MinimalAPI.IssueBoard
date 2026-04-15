@@ -1,0 +1,6 @@
+@Api.MinimalAPI.IssueBoard_HostAddress = http://localhost:5044
+
+GET {{Api.MinimalAPI.IssueBoard_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

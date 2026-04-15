@@ -1,0 +1,70 @@
+<UserControl x:Class="Net10.Wpf.MinimalAPI.IssueBoard.Views.IssueListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <DockPanel Margin="15">
+
+        <!-- タイトル -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="課題一覧"
+                   FontSize="18" FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <!-- ボタン (常に画面下部に表示) -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,10,0,0">
+            <Button Content="課題登録"
+                    Command="{Binding GoToCreateCommand}"
+                    Width="110" Height="32" Margin="6,0"/>
+            <Button Content="終了"
+                    Command="{Binding ExitCommand}"
+                    Width="110" Height="32" Margin="6,0"/>
+        </StackPanel>
+
+        <!-- 課題一覧 DataGrid -->
+        <DataGrid ItemsSource="{Binding Issues}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  CanUserAddRows="False"
+                  GridLinesVisibility="Horizontal"
+                  AlternatingRowBackground="#F5F5F5"
+                  ColumnHeaderHeight="30">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <EventSetter Event="MouseLeftButtonUp"
+                                 Handler="DataGridRow_MouseLeftButtonUp"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="記入者氏名"
+                                    Binding="{Binding AuthorName}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="登録日時"
+                                    Binding="{Binding CreatedAt, StringFormat='yyyy/MM/dd HH:mm'}"
+                                    Width="130"/>
+                <DataGridTextColumn Header="カテゴリ名"
+                                    Binding="{Binding Category}"
+                                    Width="100"/>
+                <DataGridTextColumn Header="課題タイトル"
+                                    Binding="{Binding Title}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="現在の状況"
+                                    Binding="{Binding Status, Converter={StaticResource IssueStatusConverter}}"
+                                    Width="110"/>
+                <DataGridTextColumn Header="解決担当者名"
+                                    Binding="{Binding ResolverName}"
+                                    Width="120"/>
+                <DataGridTextColumn Header="最終結果日時"
+                                    Binding="{Binding ResolvedAt, StringFormat='yyyy/MM/dd HH:mm'}"
+                                    Width="130"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="Api.MinimalAPI.IssueBoard/Api.MinimalAPI.IssueBoard.csproj">
+    <BuildDependency Project="Shared.Rest.IssueBoard/Shared.Rest.IssueBoard.csproj" />
+  </Project>
+  <Project Path="Net10.Wpf.MinimalAPI.IssueBoard/Net10.Wpf.MinimalAPI.IssueBoard.csproj">
+    <BuildDependency Project="Shared.Rest.IssueBoard/Shared.Rest.IssueBoard.csproj" />
+  </Project>
+  <Project Path="Shared.Rest.IssueBoard/Shared.Rest.IssueBoard.csproj" />
+</Solution>

@@ -1,0 +1,118 @@
+<UserControl x:Class="Net10.Wpf.MinimalAPI.IssueBoard.Views.IssueDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <DockPanel Margin="15">
+
+        <!-- タイトル -->
+        <TextBlock DockPanel.Dock="Top"
+                   Text="課題詳細"
+                   FontSize="18" FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <!-- ボタン (常に画面下部) -->
+        <StackPanel DockPanel.Dock="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,12,0,0">
+            <Button Content="編集"
+                    Command="{Binding EditCommand}"
+                    Width="110" Height="32" Margin="6,0"/>
+            <Button Content="削除"
+                    Command="{Binding DeleteCommand}"
+                    Width="110" Height="32" Margin="6,0"/>
+            <Button Content="戻る"
+                    Command="{Binding BackCommand}"
+                    Width="110" Height="32" Margin="6,0"/>
+        </StackPanel>
+
+        <!-- 詳細フォーム (スクロール可) -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- 記入者氏名 -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="記入者氏名:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Issue.AuthorName}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- 登録日時 -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="登録日時:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                           Text="{Binding Issue.CreatedAt, StringFormat='yyyy/MM/dd HH:mm:ss'}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- カテゴリ名 -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="カテゴリ名:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Issue.Category}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- 課題タイトル -->
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="課題タイトル:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Issue.Title}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- 課題の文面 (スクロール可 読取専用) -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="課題の文面:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBox Grid.Row="4" Grid.Column="1"
+                         Text="{Binding Issue.Description}"
+                         IsReadOnly="True" TextWrapping="Wrap"
+                         Height="120" VerticalScrollBarVisibility="Auto"
+                         AcceptsReturn="True" Background="#F0F0F0"
+                         BorderBrush="#CCCCCC" Margin="0,5,0,0"/>
+
+                <!-- 現在の状況 -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="現在の状況:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="5" Grid.Column="1"
+                           Text="{Binding Issue.Status, Converter={StaticResource IssueStatusConverter}}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- 解決の文面 (スクロール可 読取専用) -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="解決の文面:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBox Grid.Row="6" Grid.Column="1"
+                         Text="{Binding Issue.Resolution}"
+                         IsReadOnly="True" TextWrapping="Wrap"
+                         Height="120" VerticalScrollBarVisibility="Auto"
+                         AcceptsReturn="True" Background="#F0F0F0"
+                         BorderBrush="#CCCCCC" Margin="0,5,0,0"/>
+
+                <!-- 解決担当者名 -->
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="解決担当者名:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Issue.ResolverName}"
+                           Style="{StaticResource FormValueStyle}"/>
+
+                <!-- 最終結果日時 -->
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="最終結果日時:"
+                           Style="{StaticResource FormLabelStyle}"/>
+                <TextBlock Grid.Row="8" Grid.Column="1"
+                           Text="{Binding Issue.ResolvedAt, StringFormat='yyyy/MM/dd HH:mm:ss'}"
+                           Style="{StaticResource FormValueStyle}"/>
+            </Grid>
+        </ScrollViewer>
+
+    </DockPanel>
+</UserControl>
